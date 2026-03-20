@@ -11,7 +11,7 @@ app.use(express.json());
 
 // Routes
 app.use("/auth", authRoutes);
-app.use("/patients", patientRoutes);
+app.use("/patient", patientRoutes);
 app.use("/face", faceRoutes);
 app.use('/relatives', relativeRoutes);
 

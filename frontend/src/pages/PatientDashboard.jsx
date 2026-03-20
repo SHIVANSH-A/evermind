@@ -21,7 +21,7 @@ export default function PatientDashboard() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const patientRes = await axios.get("http://localhost:5000/patients");
+        const patientRes = await axios.get("http://localhost:5000/patient");
         const fetchedPatient = patientRes.data.patients[0] || null;
         setPatient(fetchedPatient);
 

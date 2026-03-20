@@ -49,7 +49,7 @@ export default function PatientLogin() {
       const embedding = Array.from(detection.descriptor); // Convert Float32Array → regular array
 
       // 3) Send embedding to backend for matching
-      const res = await axios.post("http://localhost:5000/patients/match", {
+      const res = await axios.post("http://localhost:5000/patient/match", {
         faceEmbedding: embedding,
       });
       const matchedPatient = res.data.patient;
