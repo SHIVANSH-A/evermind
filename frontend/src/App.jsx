@@ -8,6 +8,7 @@ import PatientDashboard from "./pages/PatientDashboard";
 import AddRelative from "./pages/AddRelative";
 import PatientProfile from "./pages/PatientProfile";
 import MemoryAssisstant from "./pages/MemoryAssisstant";
+import Predictions from "./pages/Predictions";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/caregiver/dashboard" element={<CaregiverDashboard />} />
         <Route path="/caregiver/patient" element={<PatientProfile/>} />
         <Route path="/caregiver/relatives" element={<MemoryAssisstant/>} />
+        <Route path="/caregiver/predictions" element={<Predictions />} />
         <Route path="/relatives/add" element={<AddRelative/>} />
 
         {/* Patient */}

@@ -58,8 +58,8 @@ export default function CaregiverDashboard() {
       icon: "⏰",
     },
     {
-      title: "Predictions",
-      desc: "AI prediction of agitation risk",
+      title: "Smart Recommendations",
+      desc: "AI-powered personalized intervention suggestions",
       path: "/caregiver/predictions",
       icon: "🤖",
     },
