@@ -29,3 +29,7 @@ pnpm-debug.log*
 .cache/
 .next/
 out/
+
+
+#venv
+backend/venv/

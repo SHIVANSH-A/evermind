@@ -14,7 +14,7 @@ router.post("/", async (req, res) => {
       .select("*")
       .eq("patient_id", patient_id);
 
-    const py = spawn("python", [
+    const py = spawn("venv/Scripts/python.exe", [
       "ml/run.py",
       heart_rate,
       bp,
