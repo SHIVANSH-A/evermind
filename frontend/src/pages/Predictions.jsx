@@ -6,35 +6,44 @@ export default function Predictions() {
   const [bp, setBp] = useState("");
   const [temp, setTemp] = useState("");
   const [state, setState] = useState("");
+
   const [result, setResult] = useState(null);
   const [scores, setScores] = useState(null);
+  const [concern, setConcern] = useState(null);
 
-  const patient_id = "0697d"; // later dynamic kar sakte ho
+  const patient_id = "0697d";
 
   const getRecommendation = async () => {
-    const stateMap = {
-      agitation: 1,
-      confusion: 0
-    };
+    try {
+      const stateMap = {
+        agitation: 1,
+        confusion: 0
+      };
 
-    await axios.post("http://localhost:5000/vitals", {
-      patient_id,
-      heart_rate: Number(hr),
-      blood_pressure: Number(bp),
-      temperature: Number(temp),
-      state
-    });
+      await axios.post("http://localhost:5000/vitals", {
+        patient_id,
+        heart_rate: Number(hr),
+        blood_pressure: Number(bp),
+        temperature: Number(temp),
+        state
+      });
 
-    const res = await axios.post("http://localhost:5000/recommend", {
-      heart_rate: Number(hr),
-      bp: Number(bp),
-      temp: Number(temp),
-      state: stateMap[state],
-      patient_id
-    });
+      const res = await axios.post("http://localhost:5000/recommend", {
+        heart_rate: Number(hr),
+        bp: Number(bp),
+        temp: Number(temp),
+        state: stateMap[state],
+        patient_id
+      });
 
-    setResult(res.data.recommended);
-    setScores(res.data.scores);
+      setResult(res.data.recommended);
+      setScores(res.data.scores);
+      setConcern(res.data.concern);
+
+    } catch (err) {
+      console.error(err);
+      alert("Error fetching recommendation");
+    }
   };
 
   const sendFeedback = async (success) => {
@@ -108,14 +117,39 @@ export default function Predictions() {
               {result}
             </p>
 
+            {/* 🔥 Concern Level */}
+            {concern && (
+              <div className="mt-4 p-4 rounded-lg border bg-gray-50">
+                <h3 className="text-sm text-gray-600">
+                  Clinical Risk Level
+                </h3>
+                <p className="text-xl font-bold mt-1">
+                  {concern}
+                </p>
+              </div>
+            )}
+
             {/* Scores */}
             {scores && (
               <div className="mt-4">
                 <h3 className="font-semibold">Confidence Scores:</h3>
+
                 {Object.entries(scores).map(([key, value]) => (
-                  <p key={key}>
-                    {key}: {(value * 100).toFixed(1)}%
-                  </p>
+                  <div key={key} className="mt-2">
+
+                    <div className="flex justify-between text-sm">
+                      <span>{key}</span>
+                      <span>{(value * 100).toFixed(1)}%</span>
+                    </div>
+
+                    <div className="w-full bg-gray-200 h-2 rounded mt-1">
+                      <div
+                        className="bg-blue-500 h-2 rounded"
+                        style={{ width: `${value * 100}%` }}
+                      ></div>
+                    </div>
+
+                  </div>
                 ))}
               </div>
             )}
